@@ -1,30 +1,21 @@
-## 📄 README.md 構成案 (Prototypus AI)
+## 📄 README.md 構成案 (Go版 Prototypus AI)
 
-### \# Prototypus AI: The Data Transformation Tool
+### \# Prototypus AI (Go): High-Performance Data Transformation CLI
 
-> **[ここにプロジェクトのバッジやロゴを挿入]** 例: 
+> **[ここにプロジェクトのバッジやロゴを挿入]** 例:  | 
 
 ### 🚀 概要 (About)
 
-`Prototypus AI` は、**Gemini API** を活用したコマンドラインツールです。様々な形式の入力ファイル（Markdown、CSV、JSONなど）を読み込み、ユーザーの指定したプロンプトと出力形式に基づいて、AIによるデータ変換や整形を実行することを目的としています。
+`Prototypus AI` は、**Go言語** と **`cobra`** ライブラリを使用して構築された高性能なコマンドラインツールです。主に、**Gemini API** を活用してファイルの読み込み、AIによるデータ変換や整形を高速に実行するために設計されています。
 
-このプロジェクトは、PythonとGoという異なる言語で**同一のCLI構造を再現し、両者の開発手法とエコシステムを比較学習する**ために作成されました。
-
-| 言語 | CLI コマンド | 特徴 |
-| :--- | :--- | :--- |
-| **Python** | `ptai` | `python-fire` による簡単なCLI定義。仮想環境での管理。 |
-| **Go** | `./ptai` | `cobra` による構造化されたCLI定義。単一バイナリでの配布。 |
-
------
+このプロジェクトは、Go言語の\*\*標準的なCLI設計（Cobra）**と**パッケージ構造（`internal/`）\*\*を習得し、配布しやすい単一バイナリを作成するために作成されました。
 
 ### 🛠️ 技術スタック (Tech Stack)
 
-このプロジェクトを構築するために使用した主要な技術とライブラリです。
-
-  * **メイン言語:** Python 3.12+ / Go 1.22+
-  * **CLI フレームワーク:** `python-fire` (Python) / `spf13/cobra` (Go)
-  * **AI SDK:** `google-generativeai` (Python) / `github.com/google/generative-ai-go/genai` (Go)
-  * **依存管理:** `pip` & `pyproject.toml` (Python) / `go mod` (Go)
+  * **メイン言語:** **Go 1.22+**
+  * **CLI フレームワーク:** **`spf13/cobra`** (構造化されたCLIコマンドの構築)
+  * **API クライアント:** **`github.com/google/generative-ai-go/genai`** (Go用 Gemini SDK)
+  * **パッケージ管理:** **`go mod`**
 
 -----
 
@@ -33,74 +24,69 @@
 #### 1\. 前提条件
 
   * Git
-  * Python 3.12 以上
   * Go 1.22 以上
 
 #### 2\. 環境変数の設定
 
-Gemini APIを利用するには、APIキーが必要です。プロジェクトルートに **`.env`** ファイルを作成し、キーを設定してください。
+Gemini APIを利用するには、APIキーが必要です。プロジェクトの実行場所（通常はプロジェクトルート）に **`.env`** ファイルを作成し、キーを設定してください。
 
 ```bash
 # .env ファイルの内容
 GEMINI_API_KEY="YOUR_API_KEY_HERE"
 ```
 
-#### 3\. Python 版のセットアップ (ptai)
+#### 3\. プロジェクトのクローンとビルド
+
+Go版は単一の実行ファイルをビルドすることで動作します。
 
 ```bash
-# 仮想環境を作成・有効化
-python -m venv .venv
-source .venv/bin/activate
+# リポジトリをクローン
+git clone https://github.com/snknsk/prototypus-ai-go
+cd prototypus-ai-go
 
-# 開発モードでインストール
-pip install -e .
+# 依存関係をダウンロード
+go mod tidy
 
-# コマンド確認
-ptai hello
-```
-
-#### 4\. Go 版のセットアップ (./ptai)
-
-```bash
-# プロジェクトルートで実行
+# 実行可能ファイルをビルド（プロジェクトルートに 'ptai' が作成される）
 go build -o ptai ./cmd/ptai
 
 # コマンド確認
-./ptai convert --help
+./ptai hello
 ```
 
 -----
 
 ### 🚀 使用方法 (Usage)
 
+ビルドした実行ファイル **`./ptai`** でアプリケーションを実行できます。
+
 #### 1\. データ変換 (`convert`)
 
-Markdownファイルを読み込み、指定されたプロンプトでJSON形式に変換します。
+このコマンドは、指定されたファイルを読み込み、AIに変換を依頼します。
 
 ```bash
-# Go 版の実行例
+# 実行例：MarkdownをJSONに変換
 ./ptai convert \
-    --input-path notes.md \
+    --input-path ./documents/data.md \
     --output-format json \
-    --prompt "Convert the markdown into a list of JSON objects, summarizing each section."
+    --prompt "Extract all headings and their subsequent content into a single JSON array."
 ```
 
-#### 2\. その他のコマンド
+#### 2\. コマンドの詳細
 
-| コマンド | 説明 |
-| :--- | :--- |
-| `ptai hello` | シンプルな挨拶を表示し、CLIが正しく動作しているか確認します。 |
-| `ptai byebye --message "See ya"` | メッセージを表示してプログラムを終了します。 |
+| コマンド | 説明 | 主なフラグ |
+| :--- | :--- | :--- |
+| `./ptai convert` | ファイルをAI変換します。 | `--input-path`, `--output-format`, `--prompt` |
+| `./ptai hello` | CLIが動作していることを確認します。 | なし |
+| `./ptai --help` | **`ptai`** コマンド全体のヘルプを表示します。 | なし |
 
 -----
 
 ### 📚 学習ポイント (Learning Notes)
 
-**(※ このセクションは、特に勉強目的のプロジェクトで非常に有用です)**
-
-  * **CLI構造の設計**: Python (クラスベース) と Go (Cobraツリー構造) で、CLIのサブコマンドとフラグ（引数）をどのように定義するかを比較しました。
-  * **モジュール分離**: `cli.py` / `main.go` から、コアロジックを `core/gemini_client` へ委譲する設計パターンを習得しました。
-  * **エラーハンドリング**: ファイルの存在確認や、コアロジックからのエラー（`PerformConversion` の `return "", err`）を CLI のエントリーポイントで捕捉し、ユーザーフレンドリーなメッセージとして出力する練習をしました。
+  * **Go Standard Project Layout**: `cmd/ptai/main.go` をエントリーポイントとし、コアロジックを `internal/core` に分離する Goの標準的な構成を実践しました。
+  * **Cobra CLI Design**: `cobra` を使用して、Pythonの `fire` と同等の機能を持つ構造化されたサブコマンド（`convert`）とフラグを定義する方法を習得しました。
+  * **単一バイナリ配布**: `go build` により、依存関係を含んだ実行ファイル一つで動作するアプリケーションを作成する能力を習得しました。
 
 -----
 
