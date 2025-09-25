@@ -1,8 +1,8 @@
-## 📄 README.md 構成案 (Go版 Prototypus AI)
+# Prototypus AI (Go): High-Performance Data Transformation CLI
 
-### \# Prototypus AI (Go): High-Performance Data Transformation CLI
-
-> **[ここにプロジェクトのバッジやロゴを挿入]** 例:  | 
+[![Status](https://img.shields.io/badge/Status-In%20Development-orange)](https://github.com/snknsk/prototypus-ai-go)
+[![Language](https://img.shields.io/badge/Language-Go-blue)](https://golang.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)| 
 
 ### 🚀 概要 (About)
 
