@@ -2,7 +2,7 @@
 
 [![Status](https://img.shields.io/badge/Status-In%20Development-orange)](https://github.com/snknsk/prototypus-ai-go)
 [![Language](https://img.shields.io/badge/Language-Go-blue)](https://golang.org/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)| 
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ### 🚀 概要 (About)
 
