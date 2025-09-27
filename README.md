@@ -65,7 +65,7 @@ go build -o ptai ./cmd/ptai
 このコマンドは、指定されたファイルを読み込み、AIに変換を依頼します。
 
 ```bash
-# 実行例：MarkdownをJSONに変換
+echo '{"message": "Hello from the shell!", "status": "success", "code": 200}' > ./documents/data.md
 ./ptai convert \
     --input-path ./documents/data.md \
     --output-format json \
