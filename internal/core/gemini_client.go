@@ -3,13 +3,9 @@
 package core
 
 import (
-	"context"
 	"fmt"
 	"os"
 	"time"
-
-	"github.com/google/generative-ai-go/genai"
-	"google.golang.org/api/option"
 )
 
 // PerformConversion はファイル変換処理を実行するコアロジックをシミュレートします。
